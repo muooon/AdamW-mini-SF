@@ -27,6 +27,16 @@ Apache License 2.0 — see LICENSE for details.
 Built with 🤖 GitHub Copilot + human curiosity.
 Tested in transformer models, vision backbones, and micro-batch settings.
 
+## Acknowledgments
+
+This project builds upon the excellent work of [Adam-mini](https://github.com/zyushun/Adam-mini) by @zyushun — thank you for your contributions to lightweight optimizers.
+
+Thanks also to the open-source community behind PyTorch, and to GitHub Copilot for being an inspiring coding partner.
+
+We are grateful to the research community whose ideas around AdamW, Schedule-Free optimization, and mixed precision have made this possible.
+
+
+
 # AdamW-mini-SF
 
 **AdamW に基づいた軽量かつスケジューリング不要な最適化手法 — 自動学習率調整＆AMPサポート対応。**
@@ -54,3 +64,12 @@ Apache License 2.0 — 詳細は LICENSE をご覧ください。
 
 🤖 GitHub Copilot と人間の好奇心のコラボで誕生しました。
 Transformer系モデルやマイクロバッチ学習などで実験・活用されています。
+
+## 謝辞（Acknowledgments）
+
+本プロジェクトは、[@zyushun](https://github.com/zyushun) 氏による [Adam-mini](https://github.com/zyushun/Adam-mini) の素晴らしい先行研究と実装に多くを学び、その上に構築しています。軽量かつ高性能な最適化器の礎を築いていただき、深く感謝申し上げます。
+
+また、PyTorch および OSS コミュニティの皆さま、Schedule-Free 最適化や mixed precision 学習に関する研究を築いてきた研究者の方々の知見に、心より敬意を表します。
+
+さらに、本実装にあたっては GitHub Copilot との協働も大きな助けとなりました。AI支援による開発の可能性に感謝するとともに、これからも人間とAIの共創が広がることを願っています。
+
