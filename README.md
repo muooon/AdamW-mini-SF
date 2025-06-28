@@ -20,6 +20,11 @@ Simply copy the `adamw_mini_sf.py` file into your project.
 from adamw_mini_sf import AdamWminiScheduleFree
 optimizer = AdamWminiScheduleFree(model.parameters(), lr=1e-3)
 ```
+If dtype is omitted, the optimizer will follow p.data.dtype to determine the internal precision. However, to enable half precision (for memory savings), it must be explicitly specified:
+```
+optimizer = AdamWminiScheduleFree(model.parameters(), lr=1e-3, dtype=torch.float16)
+```
+With this, optimizer states like exp_avg and exp_avg_sq will be stored in half precision, allowing for both memory and performance optimizations.
 
 License
 Apache License 2.0 — see LICENSE for details.
@@ -58,6 +63,11 @@ We are grateful to the research community whose ideas around AdamW, Schedule-Fre
 from adamw_mini_sf import AdamWminiScheduleFree
 optimizer = AdamWminiScheduleFree(model.parameters(), lr=1e-3)
 ```
+dtype を省略すれば p.data.dtype に従って状態が作られますが、半精度（省メモリ化）を有効にしたい場合は明示が必要です：
+```
+optimizer = AdamWminiScheduleFree(model.parameters(), lr=1e-3, dtype=torch.float16)
+```
+これで exp_avg / exp_avg_sq などのモーメントが半精度で保持され、メモリ・速度の最適化が効きます。
 
 ライセンス
 Apache License 2.0 — 詳細は LICENSE をご覧ください。
