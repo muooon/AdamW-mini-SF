@@ -19,6 +19,7 @@ Simply copy the `adamw_mini_sf.py` file into your project.
 ```python
 from adamw_mini_sf import AdamWminiScheduleFree
 optimizer = AdamWminiScheduleFree(model.parameters(), lr=1e-3)
+```
 
 License
 Apache License 2.0 — see LICENSE for details.
@@ -46,6 +47,7 @@ Tested in transformer models, vision backbones, and micro-batch settings.
 ```python
 from adamw_mini_sf import AdamWminiScheduleFree
 optimizer = AdamWminiScheduleFree(model.parameters(), lr=1e-3)
+```
 
 ライセンス
 Apache License 2.0 — 詳細は LICENSE をご覧ください。
