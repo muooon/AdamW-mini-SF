@@ -83,12 +83,13 @@ Transformer系モデルやマイクロバッチ学習などで実験・活用さ
 
 さらに、本実装にあたっては GitHub Copilot との協働も大きな助けとなりました。AI支援による開発の可能性に感謝するとともに、これからも人間とAIの共創が広がることを願っています。
 
-## 比較実験コード（再現用）
+## 比較実験コード（再現用）Benchmark Code (for Reproducibility)
 
 以下は、AdamWとAdamW-mini-ScheduleFreeの処理速度・メモリ使用量を比較したテストコードです。再現性のため、そのまま貼り付けて実行できます。
+Below is a test script that compares the processing speed and memory usage of AdamW and AdamW-mini-ScheduleFree. You can copy and run it as-is to reproduce the results.
 
 <details>
-<summary>テストコードを表示</summary>
+<summary>テストコードを表示-Show Test Code</summary>
 
 ```python
 import torch, time
