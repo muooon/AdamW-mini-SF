@@ -83,3 +83,103 @@ Transformer系モデルやマイクロバッチ学習などで実験・活用さ
 
 さらに、本実装にあたっては GitHub Copilot との協働も大きな助けとなりました。AI支援による開発の可能性に感謝するとともに、これからも人間とAIの共創が広がることを願っています。
 
+## 比較実験コード（再現用）
+
+以下は、AdamWとAdamW-mini-ScheduleFreeの処理速度・メモリ使用量を比較したテストコードです。再現性のため、そのまま貼り付けて実行できます。
+
+<details>
+<summary>テストコードを表示</summary>
+
+```pythonimport torch, time
+import matplotlib.pyplot as plt
+from torch import nn, utils
+from torch.optim import AdamW
+from torch.utils.checkpoint import checkpoint_sequential
+
+from adamw_mini_sf import AdamWminiScheduleFree
+
+import matplotlib
+matplotlib.rcParams['font.family'] = 'Meiryo'  # Windowsの場合
+
+# モデル定義（3ブロックに分けてcheckpointing対応）
+class CheckpointedModel(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.seq = nn.Sequential(
+            nn.Linear(2048, 2048),
+            nn.ReLU(),
+            nn.Linear(2048, 2048),
+            nn.ReLU(),
+            nn.Linear(2048, 2048)
+        )
+    def forward(self, x):
+        return checkpoint_sequential(self.seq, 3, x, use_reentrant=False)
+
+
+# 初期化＆fp16化
+model = CheckpointedModel().cuda() #.half()
+
+# データもfp16
+x = torch.randn(16, 2048, dtype=torch.float16, device='cuda', requires_grad=True)
+y = torch.randn(16, 2048, dtype=torch.float16, device='cuda')
+loss_fn = nn.MSELoss()
+
+optimizers = {
+    "AdamW": lambda: AdamW(model.parameters(), lr=1e-3),
+    "AdamW-mini-SF": lambda: AdamWminiScheduleFree(model.parameters(), lr=1e-3, dtype=torch.float16)
+}
+
+records = {}
+for name, opt_fn in optimizers.items():
+    torch.cuda.empty_cache()
+    torch.manual_seed(42)
+    model.apply(lambda m: hasattr(m, "reset_parameters") and m.reset_parameters())
+
+    mem_log, time_log = [], []
+    optimizer = opt_fn()
+    scaler = torch.cuda.amp.GradScaler()  # AMPと併用可
+
+    for _ in range(50):
+        torch.cuda.synchronize()
+        t0 = time.perf_counter()
+
+        with torch.autocast(device_type='cuda', dtype=torch.float16):
+            y_pred = model(x)
+            loss = loss_fn(y_pred, y)
+
+        optimizer.zero_grad(set_to_none=True)
+        scaler.scale(loss).backward()
+        scaler.step(optimizer)
+        scaler.update()
+
+        torch.cuda.synchronize()
+        t1 = time.perf_counter()
+
+        mem_mb = torch.cuda.memory_allocated() / 1024**2
+        mem_log.append(mem_mb)
+        time_log.append((t1 - t0) * 1000)
+
+    records[name] = {"mem": mem_log, "time": time_log}
+
+# グラフ描画
+plt.figure(figsize=(12, 5))
+
+plt.subplot(1, 2, 1)
+for name, data in records.items():
+    plt.plot(data["mem"], label=name)
+plt.ylabel("VRAM使用量 (MB)")
+plt.xlabel("Iteration")
+plt.title("メモリ使用量の比較")
+plt.legend()
+
+plt.subplot(1, 2, 2)
+for name, data in records.items():
+    plt.plot(data["time"], label=name)
+plt.ylabel("1ステップ時間 (ms)")
+plt.xlabel("Iteration")
+plt.title("処理時間の比較")
+plt.legend()
+
+plt.tight_layout()
+plt.show()
+```
