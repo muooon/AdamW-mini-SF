@@ -90,7 +90,8 @@ Transformer系モデルやマイクロバッチ学習などで実験・活用さ
 <details>
 <summary>テストコードを表示</summary>
 
-```pythonimport torch, time
+```python
+import torch, time
 import matplotlib.pyplot as plt
 from torch import nn, utils
 from torch.optim import AdamW
