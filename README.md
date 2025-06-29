@@ -21,7 +21,7 @@ from adamw_mini_sf import AdamWminiScheduleFree
 optimizer = AdamWminiScheduleFree(model.parameters(), lr=1e-3)
 ```
 If dtype is omitted, the optimizer will follow p.data.dtype to determine the internal precision. However, to enable half precision (for memory savings), it must be explicitly specified:
-```
+```python
 optimizer = AdamWminiScheduleFree(model.parameters(), lr=1e-3, dtype=torch.float16)
 ```
 With this, optimizer states like exp_avg and exp_avg_sq will be stored in half precision, allowing for both memory and performance optimizations.
@@ -39,9 +39,9 @@ This project builds upon the excellent work of [Adam-mini](https://github.com/zy
 Thanks also to the open-source community behind PyTorch, and to GitHub Copilot for being an inspiring coding partner.
 
 We are grateful to the research community whose ideas around AdamW, Schedule-Free optimization, and mixed precision have made this possible.
-
-
-
+ 
+![AdamW-mini-ScheduleFree00](https://github.com/muooon/adamw-mini-ScheduleFree/blob/main/AdamW-mini-ScheduleFree00.png?raw=true)
+ 
 # AdamW-mini-SF
 
 **AdamW に基づいた軽量かつスケジューリング不要な最適化手法 — 自動学習率調整＆AMPサポート対応。**
@@ -64,7 +64,7 @@ from adamw_mini_sf import AdamWminiScheduleFree
 optimizer = AdamWminiScheduleFree(model.parameters(), lr=1e-3)
 ```
 dtype を省略すれば p.data.dtype に従って状態が作られますが、半精度（省メモリ化）を有効にしたい場合は明示が必要です：
-```
+```python
 optimizer = AdamWminiScheduleFree(model.parameters(), lr=1e-3, dtype=torch.float16)
 ```
 これで exp_avg / exp_avg_sq などのモーメントが半精度で保持され、メモリ・速度の最適化が効きます。
