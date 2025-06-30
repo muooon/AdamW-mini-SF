@@ -48,9 +48,9 @@ The test code is provided at the end.
 
 このオプティマイザは、[Adam-mini](https://github.com/zyushun/Adam-mini) を拡張し、以下の特徴を持ちます：
 
-- 🚀 **省メモリな状態管理**：モーメント（`m`, `v`）を低精度（`float16` や `bfloat16`）で保持
-- 🧠 **Schedule-Free な学習率調整**：スムーズな勾配ノルムを追跡し、`lr` を動的に調整（スケジューラー不要）
-- 🛡️ **分離されたWeight Decay（AdamW形式）**：勾配とは独立した正則化処理
+- 🚀 **省メモリな状態管理**：モーメント(`m`, `v`)を低精度(`float16` や `bfloat16`)で保持
+- 🧠 **Schedule-Free な学習率調整**：スムーズな勾配ノルムを追跡し、`lr` を動的に調整(スケジューラー不要)
+- 🛡️ **分離されたWeight Decay(AdamW形式)**：勾配とは独立した正則化処理
 - ⚙️ **AMP / mixed precision に対応**：パラメータの dtype を自動検出し、`torch.amp` とシームレスに連携可能
 
 ## インストール
@@ -74,7 +74,7 @@ Apache License 2.0 — 詳細は LICENSE をご覧ください。
 
 🤖 GitHub Copilot と人間の好奇心のコラボで誕生しました。
 
-## 謝辞（Acknowledgments）
+## 謝辞(Acknowledgments)
 
 本プロジェクトは、[@zyushun](https://github.com/zyushun) 氏による [Adam-mini](https://github.com/zyushun/Adam-mini) の素晴らしい先行研究と実装に多くを学び、その上に構築しています。軽量かつ高性能な最適化器の礎を築いていただき、深く感謝申し上げます。
 
