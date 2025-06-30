@@ -74,7 +74,6 @@ optimizer = AdamWminiScheduleFree(model.parameters(), lr=1e-3, dtype=torch.float
 Apache License 2.0 — 詳細は LICENSE をご覧ください。
 
 🤖 GitHub Copilot と人間の好奇心のコラボで誕生しました。
-Transformer系モデルやマイクロバッチ学習などで実験・活用されています。
 
 ## 謝辞（Acknowledgments）
 
