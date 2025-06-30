@@ -30,7 +30,6 @@ License
 Apache License 2.0 — see LICENSE for details.
 
 Built with 🤖 GitHub Copilot + human curiosity.
-Tested in transformer models, vision backbones, and micro-batch settings.
 
 ## Acknowledgments
 
