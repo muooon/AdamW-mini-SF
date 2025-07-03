@@ -12,7 +12,7 @@ This optimizer extends [Adam-mini](https://github.com/zyushun/Adam-mini) with:
 
 ## Installation
 
-Simply copy the `adamw_mini_sf.py` file into your project.
+Simply copy the `adamwmini_schedulefree.py` file into your project.
 
 ## Usage
 
@@ -55,7 +55,7 @@ The test code is provided at the end.
 
 ## インストール
 
-`adamw_mini_sf.py` をプロジェクトにコピーしてください。
+`adamwmini_schedulefree.py` をプロジェクトにコピーしてください。
 
 ## 使い方
 
